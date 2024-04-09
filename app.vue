@@ -11,17 +11,29 @@ watch(chords, (value) => {
 
 <template>
   <div>
-    <textarea v-model="chords" rows="20" cols="80"></textarea>
+    <textarea
+      v-model="chords"
+      rows="20"
+      cols="80"
+    />
 
     <template v-if="tokens">
-      <hr />
+      <hr>
       <div>
-        <div v-for="line in tokens" class="line">
-          <template v-for="token in line">
-            <template v-if="typeof token === 'string'">{{
-              token.replace(/\s/g, "&nbsp;")
-            }}</template>
-            <span v-else class="chord">{{ token.toString().replace(/\s/g, "&nbsp;") }}</span>
+        <div
+          v-for="(line, i) in tokens"
+          :key="i"
+          class="line"
+        >
+          <template v-for="(token, j) in line">
+            <template v-if="typeof token === 'string'">
+              {{ token.replace(/\s/g, "&nbsp;") }}
+            </template>
+            <span
+              v-else
+              :key="j"
+              class="chord"
+            >{{ token.toString().replace(/\s/g, "&nbsp;") }}</span>
           </template>
         </div>
       </div>
@@ -34,6 +46,7 @@ watch(chords, (value) => {
   font-family: "Roboto Mono", "Courier New", Courier, monospace;
   min-height: 1rem;
 }
+
 .chord {
   font-weight: 700;
   color: red;

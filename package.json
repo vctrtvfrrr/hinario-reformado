@@ -14,5 +14,13 @@
     "nuxt": "^3.11.2",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0"
+  },
+  "devDependencies": {
+    "@nuxt/eslint": "^0.3.4",
+    "@types/bun": "latest",
+    "eslint": "^9.0.0"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
   }
 }
