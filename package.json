@@ -8,7 +8,8 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "db:generate": "drizzle-kit generate:pg"
+    "db:generate": "drizzle-kit generate:sqlite",
+    "db:migrate": "drizzle-kit push:sqlite"
   },
   "dependencies": {
     "@nuxt/ui": "^2.15.1",
@@ -22,6 +23,7 @@
     "@nuxt/eslint": "^0.3.4",
     "@types/bun": "latest",
     "better-sqlite3": "^9.5.0",
+    "dotenv": "^16.4.5",
     "drizzle-kit": "^0.20.14",
     "eslint": "^9.0.0",
     "pathe": "^1.1.2"
