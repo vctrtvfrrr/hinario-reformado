@@ -7,11 +7,13 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "db:generate": "drizzle-kit generate:pg"
   },
   "dependencies": {
     "@nuxt/ui": "^2.15.1",
     "chord-transposer": "^3.0.9",
+    "drizzle-orm": "^0.30.7",
     "nuxt": "^3.11.2",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0"
@@ -19,7 +21,10 @@
   "devDependencies": {
     "@nuxt/eslint": "^0.3.4",
     "@types/bun": "latest",
-    "eslint": "^9.0.0"
+    "better-sqlite3": "^9.5.0",
+    "drizzle-kit": "^0.20.14",
+    "eslint": "^9.0.0",
+    "pathe": "^1.1.2"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
