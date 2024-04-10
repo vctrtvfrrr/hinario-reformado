@@ -10,12 +10,8 @@ watch(chords, (value) => {
 </script>
 
 <template>
-  <div>
-    <textarea
-      v-model="chords"
-      rows="20"
-      cols="80"
-    />
+  <div class="container py-4 mx-auto">
+    <UTextarea v-model="chords" />
 
     <template v-if="tokens">
       <hr>
