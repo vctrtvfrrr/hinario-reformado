@@ -2,23 +2,29 @@
 const { data: songs } = await useFetch('/api/songs')
 
 function preview(text: string): string {
-  if (text.length > 70) text = text.slice(0, 70) + '...'
-  return text.replace(/\n/g, '<br />')
+  const lines = text.split('\n')
+  if (lines.length >= 2) text = `${lines[0]}<br />${lines[1]}`
+  return text
 }
 </script>
 
 <template>
-  <div class="flex">
+  <div class="space-y-4">
     <div
       v-for="song in songs"
       :key="song.id"
-      class="border shadow rounded m-2 px-4 py-2"
+      class="border shadow rounded px-4 py-2"
     >
       <h3 class="font-bold text-lg">
-        {{ song.title }}
+        <NuxtLink :to="`/song/${song.id}`">
+          {{ `${song.title} &mdash; ${song.artist}` }}
+        </NuxtLink>
       </h3>
-      <!-- eslint-disable-next-line vue/no-v-html -->
-      <div v-html="preview(song.lyrics)" />
+      <!-- eslint-disable vue/no-v-html -->
+      <div
+        class="text-sm italic"
+        v-html="preview(song.lyrics)"
+      />
     </div>
   </div>
 </template>
