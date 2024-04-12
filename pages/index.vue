@@ -10,21 +10,14 @@ function preview(text: string): string {
 
 <template>
   <div class="space-y-4">
-    <div
-      v-for="song in songs"
-      :key="song.id"
-      class="border shadow rounded px-4 py-2"
-    >
-      <h3 class="font-bold text-lg">
+    <div v-for="song in songs" :key="song.id" class="rounded border px-4 py-2 shadow">
+      <h3 class="text-lg font-bold">
         <NuxtLink :to="`/song/${song.id}`">
           {{ `${song.title} &mdash; ${song.artist}` }}
         </NuxtLink>
       </h3>
       <!-- eslint-disable vue/no-v-html -->
-      <div
-        class="text-sm italic"
-        v-html="preview(song.lyrics)"
-      />
+      <div class="text-sm italic" v-html="preview(song.lyrics)" />
     </div>
   </div>
 </template>

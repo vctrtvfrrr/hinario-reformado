@@ -34,8 +34,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
     })
 
     await navigateTo('/')
-  }
-  catch (err) {
+  } catch (err) {
     toast.add({
       color: 'red',
       title: 'Atenção',
@@ -50,61 +49,29 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
 </script>
 
 <template>
-  <UForm
-    :schema="schema"
-    :state="state"
-    class="space-y-4"
-    @submit="onSubmit"
-  >
+  <UForm :schema="schema" :state="state" class="space-y-4" @submit="onSubmit">
     <div>
-      <UFormGroup
-        label="Título"
-        name="title"
-        required
-      >
-        <UInput
-          v-model="state.title"
-          size="lg"
-          :ui="{ size: { lg: 'text-xl' } }"
-        />
+      <UFormGroup label="Título" name="title" required>
+        <UInput v-model="state.title" size="lg" :ui="{ size: { lg: 'text-xl' } }" />
       </UFormGroup>
     </div>
 
     <div class="flex gap-4">
       <div class="flex-auto">
-        <UFormGroup
-          label="Cifra"
-          name="chords"
-          required
-        >
-          <UTextarea
-            v-model="state.chords"
-            :rows="20"
-            autoresize
-          />
+        <UFormGroup label="Cifra" name="chords" required>
+          <UTextarea v-model="state.chords" :rows="20" autoresize />
         </UFormGroup>
       </div>
 
       <div class="flex-auto">
-        <UFormGroup
-          label="Letra"
-          name="lyrics"
-          required
-        >
-          <UTextarea
-            v-model="state.lyrics"
-            :rows="20"
-            autoresize
-          />
+        <UFormGroup label="Letra" name="lyrics" required>
+          <UTextarea v-model="state.lyrics" :rows="20" autoresize />
         </UFormGroup>
       </div>
     </div>
 
     <div class="flex">
-      <UButton
-        type="submit"
-        label="Salvar"
-      />
+      <UButton type="submit" label="Salvar" />
     </div>
   </UForm>
 </template>

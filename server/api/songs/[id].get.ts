@@ -8,10 +8,10 @@ export default defineEventHandler(async (event) => {
     .from(songsTable)
     .where(and(eq(songsTable.id, +id), isNull(songsTable.deletedAt)))
 
-  if (!song) return createError({
+  if (song) return song
+
+  return createError({
     statusCode: 404,
     message: 'Song not found',
   })
-
-  return song
 })

@@ -8,9 +8,4 @@ export default defineNuxtConfig({
   tailwindcss: {
     viewer: false,
   },
-  eslint: {
-    config: {
-      stylistic: true,
-    },
-  },
 })
