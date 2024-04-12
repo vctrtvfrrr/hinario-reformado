@@ -16,7 +16,7 @@ function preview(text: string): string {
   <div class="space-y-4">
     <div v-for="song in songs" :key="song.id" class="rounded border px-4 py-2 shadow">
       <h3 class="text-lg font-bold">
-        <NuxtLink :to="`/song/${song.id}`">
+        <NuxtLink :to="`/${urlencode(song.artist)}/${urlencode(song.title)}`">
           {{ `${song.title} &mdash; ${song.artist}` }}
         </NuxtLink>
       </h3>

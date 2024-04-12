@@ -1,6 +1,11 @@
 import { defineStore } from 'pinia'
 import type { Song } from '../server/database/schema'
 
+export type SongParams = {
+  artist: string
+  title: string
+}
+
 export const useSongsStore = defineStore('Songs', () => {
   const items = ref<Song[]>()
 
@@ -15,7 +20,14 @@ export const useSongsStore = defineStore('Songs', () => {
     })
   })
 
-  return { items, fetchSongs, songs }
+  const getSongByParams = computed(() => {
+    return (params: SongParams) =>
+      items.value?.find((i) => {
+        return i.artist === params.artist && i.title === params.title
+      })
+  })
+
+  return { items, fetchSongs, songs, getSongByParams }
 })
 
 function preview(text: string): string {
