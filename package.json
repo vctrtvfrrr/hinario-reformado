@@ -13,9 +13,11 @@
   },
   "dependencies": {
     "@nuxt/ui": "^2.15.1",
+    "@pinia/nuxt": "^0.5.1",
     "chord-transposer": "^3.0.9",
     "drizzle-orm": "^0.30.7",
     "nuxt": "^3.11.2",
+    "pinia": "^2.1.7",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0",
     "zod": "^3.22.4"

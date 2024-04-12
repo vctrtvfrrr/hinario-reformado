@@ -1,5 +1,9 @@
 <script setup lang="ts">
-const { data: songs } = await useFetch('/api/songs')
+const store = useSongsStore()
+
+await useAsyncData('songs', () => store.fetchSongs())
+
+const { songs } = storeToRefs(store)
 
 function preview(text: string): string {
   const lines = text.split('\n')
