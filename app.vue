@@ -1,7 +1,7 @@
 <template>
   <Html lang="pt-BR">
     <Head>
-      <Title>Hinário Teológico</Title>
+      <Title>Hinário Reformado</Title>
       <Meta
         name="description"
         content=""
