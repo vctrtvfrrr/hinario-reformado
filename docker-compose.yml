@@ -1,0 +1,16 @@
+services:
+  app:
+    build:
+      context: .
+      target: ${NODE_ENV:-production}
+    env_file:
+      - .env
+    ports:
+      - 3000:3000
+    volumes:
+      - ./server/database/db.sqlite:/app/server/database/db.sqlite
+    logging:
+      options:
+        max-file: 7
+        max-size: 200m
+    restart: unless-stopped
