@@ -6,6 +6,7 @@ const toast = useToast()
 
 const schema = z.object({
   title: z.string({ required_error: 'É obrigatório informar um título' }),
+  artist: z.string({ required_error: 'É obrigatório informar um compositor' }),
   lyrics: z.string({ required_error: 'É obrigatório informar uma letra' }),
   chords: z.string({ required_error: 'É obrigatório informar uma cifra' }),
 })
@@ -14,6 +15,7 @@ type Schema = z.output<typeof schema>
 
 const state = reactive({
   title: undefined,
+  artist: undefined,
   lyrics: undefined,
   chords: undefined,
 })
@@ -50,10 +52,18 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
 
 <template>
   <UForm :schema="schema" :state="state" class="space-y-4" @submit="onSubmit">
-    <div>
-      <UFormGroup label="Título" name="title" required>
-        <UInput v-model="state.title" size="lg" :ui="{ size: { lg: 'text-xl' } }" />
-      </UFormGroup>
+    <div class="flex gap-4">
+      <div class="flex-auto">
+        <UFormGroup label="Título" name="title" required>
+          <UInput v-model="state.title" size="lg" :ui="{ size: { lg: 'text-xl' } }" />
+        </UFormGroup>
+      </div>
+
+      <div class="flex-auto">
+        <UFormGroup label="Compositor" name="artist" required>
+          <UInput v-model="state.artist" size="lg" :ui="{ size: { lg: 'text-xl' } }" />
+        </UFormGroup>
+      </div>
     </div>
 
     <div class="flex gap-4">
