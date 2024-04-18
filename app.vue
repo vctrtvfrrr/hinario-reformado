@@ -1,13 +1,22 @@
 <script setup lang="ts">
 const appConfig = useAppConfig()
 const title = appConfig.title as string
+const description = appConfig.description as string
 </script>
 
 <template>
-  <Html lang="pt-BR">
+  <Html lang="pt-BR" class="h-full bg-white antialiased">
     <Head>
       <Title>{{ appConfig.title }}</Title>
-      <Meta name="description" content="" />
+      <Meta name="description" :content="description" />
+
+      <!-- Fonts -->
+      <Link rel="preconnect" href="https://fonts.googleapis.com" />
+      <Link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin />
+      <Link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Inconsolata:wght@400;700&display=swap"
+      />
 
       <!-- Favicon -->
       <Link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
