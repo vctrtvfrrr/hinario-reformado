@@ -5,7 +5,7 @@ const description = appConfig.description as string
 </script>
 
 <template>
-  <Html lang="pt-BR" class="h-full bg-white antialiased">
+  <Html lang="pt-BR" class="h-full antialiased">
     <Head>
       <Title>{{ appConfig.title }}</Title>
       <Meta name="description" :content="description" />
@@ -30,7 +30,7 @@ const description = appConfig.description as string
       <Meta name="theme-color" content="#d62828" />
     </Head>
 
-    <Body>
+    <Body class="h-full bg-white text-black dark:bg-black dark:text-cool-200">
       <NuxtLayout>
         <NuxtPage />
       </NuxtLayout>

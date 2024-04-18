@@ -18,26 +18,35 @@ if (!song) navigateTo('/')
         <div class="mx-auto px-4 sm:px-6 md:max-w-2xl md:px-4 lg:px-0">
           <header class="flex flex-col">
             <div class="flex flex-col">
-              <h1 class="mt-2 text-4xl font-bold text-cool-900">{{ song?.title }}</h1>
-              <small class="order-first font-mono text-sm leading-7 text-cool-500">{{
-                song?.artist
-              }}</small>
+              <h1 class="mt-2 text-4xl font-bold text-cool-900 dark:text-cool-100">
+                {{ song?.title }}
+              </h1>
+              <small
+                class="order-first font-mono text-sm leading-7 text-cool-500 dark:text-cool-400"
+                >{{ song?.artist }}</small
+              >
             </div>
           </header>
 
-          <hr class="border-gray-200 my-12" />
+          <hr class="my-12 border-cool-200 dark:border-cool-800" />
 
           <ChordsArea v-if="song?.chords" :chords="song.chords" />
 
-          <hr class="border-gray-200 my-12" />
+          <hr class="my-12 border-cool-200 dark:border-cool-800" />
 
       <!-- eslint-disable-next-line vue/no-v-html -->
       <div v-html="song?.lyrics.replace(/\n/g, '<br />')" />
 
-          <hr class="border-gray-200 my-12" />
+          <hr class="my-12 border-cool-200 dark:border-cool-800" />
 
     <div class="flex">
-      <UButton to="/" label="Voltar" />
+            <UButton
+              to="/"
+              variant="link"
+              icon="i-heroicons-arrow-long-left"
+              label="Voltar"
+              class="font-bold"
+            />
     </div>
   </div>
       </div>
