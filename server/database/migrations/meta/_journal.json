@@ -8,6 +8,20 @@
       "when": 1712758088838,
       "tag": "0000_silky_mongoose",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1713469029920,
+      "tag": "0001_fair_boom_boom",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1713469097619,
+      "tag": "0002_fluffy_loners",
+      "breakpoints": true
     }
   ]
 }
