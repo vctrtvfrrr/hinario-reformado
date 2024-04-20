@@ -1,0 +1,24 @@
+root = true
+
+[*]
+charset = utf-8
+insert_final_newline = true
+end_of_line = lf
+indent_style = space
+indent_size = 2
+trim_trailing_whitespace = true
+max_line_length = 100
+
+[*.json]
+insert_final_newline = false
+
+[*.md]
+trim_trailing_whitespace = false
+indent_size = 4
+
+[*.{sh,sql}]
+indent_style = tab
+indent_size = 4
+
+[*Dockerfile]
+indent_size = 4

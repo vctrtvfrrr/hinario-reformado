@@ -1,10 +1,10 @@
-import { Database } from 'bun:sqlite'
-import type { BunSQLiteDatabase } from 'drizzle-orm/bun-sqlite'
-import { drizzle } from 'drizzle-orm/bun-sqlite'
+import Database, { type Database as DatabaseType } from 'better-sqlite3'
+import type { BetterSQLite3Database } from 'drizzle-orm/better-sqlite3'
+import { drizzle } from 'drizzle-orm/better-sqlite3'
 import * as schema from '../database/schema'
 
-let sqlite: Database | null
-let db: BunSQLiteDatabase<typeof schema> | null
+let sqlite: DatabaseType | null
+let db: BetterSQLite3Database<typeof schema> | null
 
 const config = useRuntimeConfig()
 

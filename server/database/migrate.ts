@@ -1,14 +1,14 @@
 import 'dotenv/config'
 import { resolve } from 'pathe'
-import { Database } from 'bun:sqlite'
-import { drizzle } from 'drizzle-orm/bun-sqlite'
-import { migrate } from 'drizzle-orm/bun-sqlite/migrator'
+import Database from 'better-sqlite3'
+import { drizzle } from 'drizzle-orm/better-sqlite3'
+import { migrate } from 'drizzle-orm/better-sqlite3/migrator'
 
 const sqlite = new Database(
-  resolve(__dirname, '../../', process.env.DATABASE || 'server/database/db.sqlite')
+  resolve(import.meta.dirname, '../../', process.env.DATABASE || 'server/database/db.sqlite')
 )
 const db = drizzle(sqlite)
 
-migrate(db, { migrationsFolder: resolve(__dirname, './migrations') })
+migrate(db, { migrationsFolder: resolve(import.meta.dirname, './migrations') })
 
 sqlite.close()
