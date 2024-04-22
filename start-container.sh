@@ -7,7 +7,7 @@ function exit_script() {
 
 trap exit_script SIGTERM
 
-bun install --frozen-lockfile
+npm ci
+npm run dev &
 
-bun --bun run dev &
 wait
