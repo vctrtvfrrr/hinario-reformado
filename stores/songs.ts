@@ -1,5 +1,4 @@
 import { defineStore } from 'pinia'
-import type { Song } from '../server/database/schema'
 
 export type SongParams = {
   artist: string
@@ -7,7 +6,7 @@ export type SongParams = {
 }
 
 export const useSongsStore = defineStore('Songs', () => {
-  const items = ref<Song[]>()
+  const items = ref<SongGetRequest[]>([])
 
   async function fetchSongs() {
     const { data } = await useFetch('/api/songs')
@@ -16,13 +15,18 @@ export const useSongsStore = defineStore('Songs', () => {
 
   const songs = computed(() => {
     return items.value?.map((song) => {
-      return { ...song, lyrics: preview(song.lyrics), chords: preview(song.chords) }
+      return {
+        ...song,
+        lyrics: preview(song.lyrics),
+        chords: preview(song.chords),
+        link: link(song.artist, song.title),
+      }
     })
   })
 
   const getSongByParams = computed(() => {
     return (params: SongParams) =>
-      items.value?.find((i) => {
+      items.value.find((i) => {
         return i.artist === params.artist && i.title === params.title
       })
   })
@@ -34,4 +38,12 @@ function preview(text: string): string {
   const lines = text.split('\n')
   if (lines.length >= 2) text = `${lines[0]}<br />${lines[1]}`
   return text
+}
+
+function link(artist: string, title: string): string {
+  return `/${urlencode(artist)}/${urlencode(title)}`
+}
+
+if (import.meta.hot) {
+  import.meta.hot.accept(acceptHMRUpdate(useSongsStore, import.meta.hot))
 }

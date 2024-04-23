@@ -23,6 +23,3 @@ export const songs = sqliteTable(
 export const songsRelations = relations(songs, ({ many }) => ({
   songsToTags: many(songsToTags),
 }))
-
-export type Song = typeof songs.$inferSelect
-export type NewSong = typeof songs.$inferInsert

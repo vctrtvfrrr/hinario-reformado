@@ -1,21 +1,7 @@
 <script setup lang="ts">
-import type { Song } from '~/server/database/schema'
-
 const store = useSongsStore()
-
 await useAsyncData('songs', () => store.fetchSongs())
-
 const { songs } = storeToRefs(store)
-
-function preview(text: string): string {
-  const lines = text.split('\n')
-  if (lines.length >= 2) text = `${lines[0]}<br />${lines[1]}`
-  return text
-}
-
-function link(song: Song): string {
-  return `/${urlencode(song.artist)}/${urlencode(song.title)}`
-}
 </script>
 
 <template>
@@ -39,7 +25,7 @@ function link(song: Song): string {
             <div class="mx-auto px-4 sm:px-6 md:max-w-2xl md:px-4 lg:px-0">
               <div class="flex flex-col items-start">
                 <h2 class="mt-2 text-lg font-bold text-cool-900 dark:text-cool-100">
-                  <NuxtLink :to="link(song)">
+                  <NuxtLink :to="song.link">
                     {{ song.title }}
                   </NuxtLink>
                 </h2>
@@ -52,7 +38,7 @@ function link(song: Song): string {
                 <!-- eslint-disable vue/no-v-html -->
                 <p
                   class="mt-1 text-base leading-snug text-cool-700 dark:text-cool-300"
-                  v-html="preview(song.lyrics)"
+                  v-html="song.lyrics"
                 />
 
                 <div class="mt-4 flex items-center gap-4">
@@ -65,7 +51,7 @@ function link(song: Song): string {
                   />
                   <span class="text-sm font-bold text-cool-400 dark:text-cool-600">/</span>
                   <UButton
-                    :to="link(song)"
+                    :to="song.link"
                     variant="link"
                     :padded="false"
                     label="detalhes"

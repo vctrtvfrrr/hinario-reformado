@@ -1,7 +1,19 @@
-import { isNull } from 'drizzle-orm'
-import { songs as songsTable } from '~/server/database/schema'
+import { eq, isNull, sql } from 'drizzle-orm'
+import * as table from '~/server/database/schema'
 
-export default defineEventHandler(async () => {
-  const songs = await useDb().select().from(songsTable).where(isNull(songsTable.deletedAt))
+export default defineEventHandler(async (): Promise<SongGetRequest[]> => {
+  const songs = await useDb()
+    .select({
+      id: table.songs.id,
+      title: table.songs.title,
+      artist: sql<string>`COALESCE(${table.artists.name}, '')`,
+      lyrics: table.songs.lyrics,
+      chords: table.songs.chords,
+    })
+    .from(table.songs)
+    .leftJoin(table.artists, eq(table.artists.id, table.songs.artistId))
+    .where(isNull(table.songs.deletedAt))
+    .all()
+
   return songs
 })
