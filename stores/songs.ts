@@ -19,7 +19,7 @@ export const useSongsStore = defineStore('Songs', () => {
         ...song,
         lyrics: preview(song.lyrics),
         chords: preview(song.chords),
-        link: link(song.artist, song.title),
+        detailsLink: link(song.artist, song.title),
       }
     })
   })

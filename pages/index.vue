@@ -25,7 +25,7 @@ const { songs } = storeToRefs(store)
             <div class="mx-auto px-4 sm:px-6 md:max-w-2xl md:px-4 lg:px-0">
               <div class="flex flex-col items-start">
                 <h2 class="mt-2 text-lg font-bold text-cool-900 dark:text-cool-100">
-                  <NuxtLink :to="song.link">
+                  <NuxtLink :to="song.detailsLink">
                     {{ song.title }}
                   </NuxtLink>
                 </h2>
@@ -42,16 +42,19 @@ const { songs } = storeToRefs(store)
                 />
 
                 <div class="mt-4 flex items-center gap-4">
+                  <template v-if="song.link">
+                    <UButton
+                      :to="song.link"
+                      variant="link"
+                      icon="i-heroicons-play"
+                      :padded="false"
+                      label="ouvir"
+                      class="font-bold"
+                    />
+                    <span class="text-sm font-bold text-cool-400 dark:text-cool-600">/</span>
+                  </template>
                   <UButton
-                    variant="link"
-                    icon="i-heroicons-play"
-                    :padded="false"
-                    label="ouvir"
-                    class="font-bold"
-                  />
-                  <span class="text-sm font-bold text-cool-400 dark:text-cool-600">/</span>
-                  <UButton
-                    :to="song.link"
+                    :to="song.detailsLink"
                     variant="link"
                     :padded="false"
                     label="detalhes"

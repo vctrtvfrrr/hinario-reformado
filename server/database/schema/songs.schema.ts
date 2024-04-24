@@ -12,6 +12,7 @@ export const songs = sqliteTable(
     artistId: integer('artist_id').references(() => artists.id),
     lyrics: text('lyrics').notNull(),
     chords: text('chords').notNull(),
+    link: text('link'),
     ...timestamps,
     deletedAt,
   },

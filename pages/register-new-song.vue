@@ -13,6 +13,7 @@ const schema = z.object({
   artist: z.string({ required_error: 'É obrigatório informar um compositor' }),
   lyrics: z.string({ required_error: 'É obrigatório informar uma letra' }),
   chords: z.string({ required_error: 'É obrigatório informar uma cifra' }),
+  link: z.string().optional(),
 })
 
 type Schema = z.output<typeof schema>
@@ -22,6 +23,7 @@ const state = reactive({
   artist: undefined,
   lyrics: undefined,
   chords: undefined,
+  link: undefined,
 })
 
 async function onSubmit(event: FormSubmitEvent<Schema>) {
@@ -94,6 +96,10 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
               </UFormGroup>
             </div>
           </div>
+
+          <UFormGroup label="Link" name="link">
+            <UInput v-model="state.link" />
+          </UFormGroup>
 
           <div class="flex">
             <UButton type="submit" label="Salvar" />

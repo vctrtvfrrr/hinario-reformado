@@ -1,4 +1,3 @@
-import type { NewSong } from '~/server/database/schema'
 import { songs as songsTable } from '~/server/database/schema'
 
 export default defineEventHandler(async (event) => {

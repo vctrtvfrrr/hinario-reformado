@@ -10,5 +10,6 @@ declare global {
     artist: string
     lyrics: string
     chords: string
+    link?: string | null
   }
 }

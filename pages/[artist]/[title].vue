@@ -39,7 +39,7 @@ if (!song) navigateTo('/')
 
           <hr class="my-12 border-cool-200 dark:border-cool-800" />
 
-          <div class="flex">
+          <div class="flex items-center gap-4">
             <UButton
               to="/"
               variant="link"
@@ -47,6 +47,17 @@ if (!song) navigateTo('/')
               label="Voltar"
               class="font-bold"
             />
+            <template v-if="song.link">
+              <span class="text-sm font-bold text-cool-400 dark:text-cool-600">/</span>
+              <UButton
+                :to="song.link"
+                variant="link"
+                icon="i-heroicons-play"
+                :padded="false"
+                label="ouvir"
+                class="font-bold"
+              />
+            </template>
           </div>
         </div>
       </div>

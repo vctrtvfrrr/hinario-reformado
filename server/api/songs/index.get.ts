@@ -9,6 +9,7 @@ export default defineEventHandler(async (): Promise<SongGetRequest[]> => {
       artist: sql<string>`COALESCE(${table.artists.name}, '')`,
       lyrics: table.songs.lyrics,
       chords: table.songs.chords,
+      link: table.songs.link,
     })
     .from(table.songs)
     .leftJoin(table.artists, eq(table.artists.id, table.songs.artistId))
