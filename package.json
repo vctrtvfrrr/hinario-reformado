@@ -10,7 +10,7 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "db:generate": "drizzle-kit generate:sqlite",
-    "db:migrate": "node --loader ts-node/esm ./server/database/migrate.ts"
+    "db:migrate": "node --import=./register.js ./server/database/migrate.ts"
   },
   "dependencies": {
     "@nuxt/ui": "^2.15.2",
