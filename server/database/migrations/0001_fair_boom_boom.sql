@@ -29,7 +29,9 @@ CREATE TABLE `tags` (
 );
 --> statement-breakpoint
 CREATE UNIQUE INDEX `artists_name_unique` ON `artists` (`name`);
+--> statement-breakpoint
 CREATE UNIQUE INDEX `songs_title_artist_id_unique` ON `songs` (`title`,`artist_id`);
+--> statement-breakpoint
 CREATE UNIQUE INDEX `tags_label_unique` ON `tags` (`label`);
 --> statement-breakpoint
 INSERT INTO `artists` (`name`)

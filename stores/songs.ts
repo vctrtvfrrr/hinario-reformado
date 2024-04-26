@@ -14,14 +14,12 @@ export const useSongsStore = defineStore('Songs', () => {
   }
 
   const songs = computed(() => {
-    return items.value?.map((song) => {
-      return {
-        ...song,
-        lyrics: preview(song.lyrics),
-        chords: preview(song.chords),
-        detailsLink: link(song.artist, song.title),
-      }
-    })
+    return items.value?.map((song) => ({
+      ...song,
+      lyrics: preview(song.lyrics),
+      chords: preview(song.chords),
+      detailsLink: link(song.artist, song.title),
+    }))
   })
 
   const getSongByParams = computed(() => {
