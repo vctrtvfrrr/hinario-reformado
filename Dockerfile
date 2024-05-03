@@ -11,11 +11,10 @@ FROM base as production
 COPY --from=build --link /app/.output /app/.output
 USER node
 EXPOSE 3000/tcp
-VOLUME [ "/app/server/database/db.sqlite" ]
 CMD [ "node", ".output/server/index.mjs" ]
 
 FROM base as development
 USER node
 EXPOSE 3000/tcp
 VOLUME [ "/app" ]
-CMD [ "./start-container.sh" ]
+CMD [ "/bin/bash", "-c", "npm install ; npm run dev" ]

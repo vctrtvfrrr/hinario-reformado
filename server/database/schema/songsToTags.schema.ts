@@ -1,17 +1,16 @@
 import { relations } from 'drizzle-orm'
-import { integer, primaryKey, sqliteTable } from 'drizzle-orm/sqlite-core'
-import { songs } from './songs.schema'
-import { tags } from './tags.schema'
+import { integer, primaryKey, pgTable } from 'drizzle-orm/pg-core'
+import { songs, tags } from '.'
 
-export const songsToTags = sqliteTable(
+export const songsToTags = pgTable(
   'songs_to_tags',
   {
     songId: integer('song_id')
       .notNull()
-      .references(() => songs.id),
+      .references(() => songs.id, { onDelete: 'cascade' }),
     tagId: integer('tag_id')
       .notNull()
-      .references(() => tags.id),
+      .references(() => tags.id, { onDelete: 'cascade' }),
   },
   (t) => ({
     pk: primaryKey({ columns: [t.songId, t.tagId] }),

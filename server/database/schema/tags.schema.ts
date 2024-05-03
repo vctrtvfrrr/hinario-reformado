@@ -1,11 +1,11 @@
 import { relations } from 'drizzle-orm'
-import { sqliteTable, text } from 'drizzle-orm/sqlite-core'
+import { pgTable, varchar } from 'drizzle-orm/pg-core'
 import { deletedAt, id, timestamps } from '../../utils/dbFields'
 import { songsToTags } from './songsToTags.schema'
 
-export const tags = sqliteTable('tags', {
+export const tags = pgTable('tags', {
   id,
-  label: text('label', { length: 50 }).notNull().unique(),
+  label: varchar('label', { length: 50 }).notNull().unique(),
   ...timestamps,
   deletedAt,
 })

@@ -1,18 +1,25 @@
-import Database, { type Database as DatabaseType } from 'better-sqlite3'
-import type { BetterSQLite3Database } from 'drizzle-orm/better-sqlite3'
-import { drizzle } from 'drizzle-orm/better-sqlite3'
+import type { NodePgDatabase } from 'drizzle-orm/node-postgres'
+import { drizzle } from 'drizzle-orm/node-postgres'
+import pg from 'pg'
 import * as schema from '../database/schema'
 
-let sqlite: DatabaseType | null
-let db: BetterSQLite3Database<typeof schema> | null
+let pool: pg.Pool | null
+let db: NodePgDatabase<typeof schema> | null
 
 const config = useRuntimeConfig()
 
 export function useDb() {
-  if (sqlite && db) return db
+  if (pool && db) return db
 
-  sqlite = new Database(config.database)
-  db = drizzle(sqlite, { schema })
+  pool = new pg.Pool({
+    host: config.db.host,
+    port: config.db.port,
+    user: config.db.user,
+    password: config.db.password,
+    database: config.db.database,
+  })
+
+  db = drizzle(pool, { schema })
 
   return db
 }

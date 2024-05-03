@@ -1,12 +1,10 @@
-CREATE TABLE `songs` (
-	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
-	`title` text(100) NOT NULL,
-	`artist` text(50) NOT NULL,
-	`lyrics` text NOT NULL,
-	`chords` text NOT NULL,
-	`created_at` text DEFAULT CURRENT_TIMESTAMP NOT NULL,
-	`updated_at` text DEFAULT CURRENT_TIMESTAMP NOT NULL,
-	`deleted_at` text
+CREATE TABLE IF NOT EXISTS "users" (
+	"id" serial PRIMARY KEY NOT NULL,
+	"name" varchar(100) NOT NULL,
+	"email" varchar NOT NULL,
+	"password" varchar(80) NOT NULL,
+	"created_at" timestamp DEFAULT now() NOT NULL,
+	"updated_at" timestamp DEFAULT now() NOT NULL,
+	"deleted_at" timestamp,
+	CONSTRAINT "users_email_unique" UNIQUE("email")
 );
---> statement-breakpoint
-CREATE UNIQUE INDEX `songs_title_artist_unique` ON `songs` (`title`,`artist`);

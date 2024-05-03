@@ -1,11 +1,11 @@
-import { sqliteTable, text } from 'drizzle-orm/sqlite-core'
+import { pgTable, varchar } from 'drizzle-orm/pg-core'
 import { deletedAt, id, timestamps } from '../../utils/dbFields'
 
-export const users = sqliteTable('users', {
+export const users = pgTable('users', {
   id,
-  name: text('name', { length: 100 }).notNull(),
-  email: text('email').notNull().unique(),
-  password: text('password', { length: 80 }).notNull(),
+  name: varchar('name', { length: 100 }).notNull(),
+  email: varchar('email').notNull().unique(),
+  password: varchar('password', { length: 80 }).notNull(),
   ...timestamps,
   deletedAt,
 })

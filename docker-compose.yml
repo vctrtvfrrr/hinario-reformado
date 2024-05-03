@@ -1,5 +1,29 @@
+x-global-options: &global-options
+  restart: unless-stopped
+  logging:
+    options:
+      max-file: 7
+      max-size: 200m
+  networks:
+    - internal
+
 services:
+  postgres:
+    <<: *global-options
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: ${DB_DATABASE}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready || exit 1']
+    ports:
+      - ${DB_PORT}:5432
+    volumes:
+      - postgres:/var/lib/postgresql/data
+
   app:
+    <<: *global-options
     build:
       context: .
       target: ${NODE_ENV:-production}
@@ -7,10 +31,12 @@ services:
       - .env
     ports:
       - 3000:3000
-    volumes:
-      - ./server/database/db.sqlite:/app/server/database/db.sqlite
-    logging:
-      options:
-        max-file: 7
-        max-size: 200m
-    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  postgres:
+
+networks:
+  internal:

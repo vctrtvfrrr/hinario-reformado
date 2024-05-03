@@ -1,12 +1,19 @@
 import 'dotenv/config'
+import { drizzle } from 'drizzle-orm/node-postgres'
+import { migrate } from 'drizzle-orm/node-postgres/migrator'
 import { resolve } from 'pathe'
-import Database from 'better-sqlite3'
-import { drizzle } from 'drizzle-orm/better-sqlite3'
-import { migrate } from 'drizzle-orm/better-sqlite3/migrator'
+import pg from 'pg'
 
-const sqlite = new Database(resolve(import.meta.dirname, '../../', String(process.env.DATABASE)))
-const db = drizzle(sqlite)
+const pool = new pg.Pool({
+  host: process.env.DB_HOST || 'localhost',
+  port: parseInt(process.env.DB_PORT || '5432'),
+  user: String(process.env.DB_USERNAME),
+  password: String(process.env.DB_PASSWORD),
+  database: String(process.env.DB_DATABASE),
+})
 
-migrate(db, { migrationsFolder: resolve(import.meta.dirname, './migrations') })
+const db = drizzle(pool)
 
-sqlite.close()
+await migrate(db, { migrationsFolder: resolve(import.meta.dirname, './migrations') })
+
+await pool.end()
