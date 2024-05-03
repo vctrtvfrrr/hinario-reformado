@@ -1,7 +1,7 @@
 import { relations } from 'drizzle-orm'
 import { pgTable, varchar } from 'drizzle-orm/pg-core'
-import { deletedAt, id, timestamps } from '../../utils/dbFields'
-import { songsToTags } from './songsToTags.schema'
+import { songsToTags } from '.'
+import { deletedAt, id, timestamps } from './dbFields'
 
 export const tags = pgTable('tags', {
   id,

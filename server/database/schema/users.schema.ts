@@ -1,5 +1,5 @@
 import { pgTable, varchar } from 'drizzle-orm/pg-core'
-import { deletedAt, id, timestamps } from '../../utils/dbFields'
+import { deletedAt, id, timestamps } from './dbFields'
 
 export const users = pgTable('users', {
   id,

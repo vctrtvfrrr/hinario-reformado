@@ -11,7 +11,8 @@
     "postinstall": "nuxt prepare",
     "test": "vitest",
     "db:generate": "drizzle-kit generate:pg",
-    "db:migrate": "tsx ./server/database/migrate.ts"
+    "db:migrate": "tsx ./server/database/migrate.ts",
+    "db:seed": "tsx ./server/database/seed.ts"
   },
   "dependencies": {
     "@nuxt/ui": "^2.15.2",
@@ -27,6 +28,7 @@
     "zod": "^3.23.4"
   },
   "devDependencies": {
+    "@faker-js/faker": "^8.4.1",
     "@nuxt/eslint": "^0.3.10",
     "@nuxt/test-utils": "^3.12.1",
     "@types/node": "^20.12.7",
