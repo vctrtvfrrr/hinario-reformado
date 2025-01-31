@@ -13,6 +13,10 @@ export const useSongsStore = defineStore('Songs', () => {
     if (data.value !== null) items.value = data.value
   }
 
+  async function fetchSongById(songId: number) {
+    console.log(songId)
+  }
+
   const songs = computed(() => {
     return items.value?.map((song) => ({
       ...song,
@@ -29,7 +33,7 @@ export const useSongsStore = defineStore('Songs', () => {
       })
   })
 
-  return { items, fetchSongs, songs, getSongByParams }
+  return { items, fetchSongs, fetchSongById, songs, getSongByParams }
 })
 
 function preview(text: string): string {

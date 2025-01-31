@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 const { params } = useRoute()
+const { loggedIn } = useAuthStore()
 const store = useSongsStore()
 
 for (const key in params) {
@@ -26,18 +27,33 @@ if (!song) navigateTo('/')
                 >{{ song.artist }}</small
               >
             </div>
+            <p class="mt-3 text-lg font-light leading-8 text-cool-700 dark:text-cool-300">
+              He’s going to need you to go ahead and come in on Saturday, but there’s a lot more to
+              the story than you think.
+            </p>
+
+            <div v-if="loggedIn" class="mt-4">
+              <UButton
+                to="/song-form"
+                variant="link"
+                icon="i-heroicons-pencil-square"
+                :padded="false"
+                label="Editar"
+                class="font-bold"
+              />
+            </div>
           </header>
 
-          <hr class="my-12 border-cool-200 dark:border-cool-800" />
+          <hr class="my-8 border-cool-200 dark:border-cool-800" />
 
           <ChordsArea v-if="song.chords" :chords="song.chords" />
 
-          <hr class="my-12 border-cool-200 dark:border-cool-800" />
+          <hr class="my-8 border-cool-200 dark:border-cool-800" />
 
           <!-- eslint-disable-next-line vue/no-v-html -->
           <div v-html="song.lyrics.replace(/\n/g, '<br />')" />
 
-          <hr class="my-12 border-cool-200 dark:border-cool-800" />
+          <hr class="my-8 border-cool-200 dark:border-cool-800" />
 
           <div class="flex items-center gap-4">
             <UButton

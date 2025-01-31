@@ -1,22 +1,17 @@
 <script setup lang="ts">
-import { z } from 'zod'
 import type { FormSubmitEvent } from '#ui/types'
+import { z } from 'zod'
 
 definePageMeta({
   middleware: 'user-only',
 })
 
+const { params } = useRoute()
+const store = useSongsStore()
 const toast = useToast()
 
-const schema = z.object({
-  title: z.string({ required_error: 'É obrigatório informar um título' }),
-  artist: z.string({ required_error: 'É obrigatório informar um compositor' }),
-  lyrics: z.string({ required_error: 'É obrigatório informar uma letra' }),
-  chords: z.string({ required_error: 'É obrigatório informar uma cifra' }),
-  link: z.string().optional(),
-})
-
-type Schema = z.output<typeof schema>
+const songId = Array.isArray(params.id) ? params.id[0] : params.id
+if (songId !== '') await useAsyncData('song', () => store.fetchSongById(parseInt(songId)))
 
 const state = reactive({
   title: undefined,
@@ -26,7 +21,17 @@ const state = reactive({
   link: undefined,
 })
 
-async function onSubmit(event: FormSubmitEvent<Schema>) {
+const validationSchema = z.object({
+  title: z.string({ required_error: 'É obrigatório informar um título' }),
+  artist: z.string({ required_error: 'É obrigatório informar um compositor' }),
+  lyrics: z.string({ required_error: 'É obrigatório informar uma letra' }),
+  chords: z.string({ required_error: 'É obrigatório informar uma cifra' }),
+  link: z.string().optional(),
+})
+
+type ValidationSchema = z.output<typeof validationSchema>
+
+async function onSubmit(event: FormSubmitEvent<ValidationSchema>) {
   try {
     await useFetch('/api/songs', {
       method: 'POST',
@@ -68,7 +73,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
       class="divide-y divide-cool-100 sm:mt-4 lg:mt-8 lg:border-t lg:border-cool-100 dark:divide-cool-900 dark:border-cool-900"
     >
       <div class="px-4 py-10 sm:px-6 sm:py-12 md:max-w-6xl md:px-4 lg:px-8">
-        <UForm :schema="schema" :state="state" class="space-y-4" @submit="onSubmit">
+        <UForm :schema="validationSchema" :state="state" class="space-y-4" @submit="onSubmit">
           <div class="flex flex-col gap-4 sm:flex-row">
             <div class="flex-auto">
               <UFormGroup label="Título" name="title" required>
