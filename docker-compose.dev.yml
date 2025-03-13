@@ -1,7 +1,0 @@
-services:
-  postgres:
-    restart: 'no'
-  app:
-    volumes:
-      - .:/app
-    restart: 'no'
