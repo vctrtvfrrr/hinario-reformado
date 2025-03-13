@@ -1,4 +1,5 @@
 import { songsTable } from '@/drizzle/schema'
+import { format } from 'date-fns'
 
 type Song = typeof songsTable.$inferSelect
 
@@ -75,7 +76,9 @@ export default function MusicTable({ songs }: Readonly<MusicTableProps>) {
               </p>
             </td>
             <td className="p-4 py-5">
-              <p className="text-sm text-slate-500">{song.lastTimeSung || 'nunca'}</p>
+              <p className="text-sm text-slate-500">
+                {song.lastTimeSung ? format(song.lastTimeSung, 'dd/MM/yyyy') : 'nunca'}
+              </p>
             </td>
             <td className="p-4 py-5">
               <p className="text-sm text-slate-500">{song.timesSung}</p>
