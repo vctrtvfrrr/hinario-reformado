@@ -1,8 +1,10 @@
-import { Stack } from "expo-router";
+import '../global.css';
 
-// Import your global CSS file
-import "../global.css";
+import { Stack } from 'expo-router';
+// import { vexo } from 'vexo-analytics';
 
-export default function RootLayout() {
+// vexo(process.env.EXPO_PUBLIC_VEXO_API_KEY || '');
+
+export default function Layout() {
   return <Stack />;
 }

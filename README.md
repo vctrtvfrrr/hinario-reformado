@@ -15,8 +15,8 @@ Style your universal React app with Tailwind CSS classes. [NativeWind](https://w
 
 <!-- Setup instructions -->
 
-- Install with `yarn` or `npm install`.
-- Run `yarn start` or `npm run start` to try it out.
+- Install with `pnpm install`.
+- Run `pnpm start` to try it out.
 
 ## 📝 Notes
 

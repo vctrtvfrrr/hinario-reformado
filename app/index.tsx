@@ -1,22 +1,19 @@
-import Button from "@/components/Button";
-import { Alert, Text, View } from "react-native";
+import { Stack, Link } from 'expo-router';
 
-export default function Index() {
+import { Button } from '~/components/Button';
+import { Container } from '~/components/Container';
+import { ScreenContent } from '~/components/ScreenContent';
+
+export default function Home() {
   return (
-    <View className="flex-1 items-center justify-center gap-y-2">
-      <View className="items-center">
-        <Text className="text-4xl">Welcome to NativeWind!</Text>
-        <Text className="text-xl">Style your app with</Text>
-        <Text className="text-3xl bg-yellow-100 font-bold underline">
-          Tailwind CSS!
-        </Text>
-      </View>
-      <Button
-        label="Sounds good!"
-        onPress={() => {
-          Alert.alert("NativeWind", "You're all set up!");
-        }}
-      />
-    </View>
+    <>
+      <Stack.Screen options={{ title: 'Home' }} />
+      <Container>
+        <ScreenContent path="app/index.tsx" title="Home" />
+        <Link href={{ pathname: '/details', params: { name: 'Dan' } }} asChild>
+          <Button title="Show Details" />
+        </Link>
+      </Container>
+    </>
   );
 }
