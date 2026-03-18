@@ -103,3 +103,138 @@ bun --hot ./index.ts
 ```
 
 For more information, read the Bun API docs in `node_modules/bun-types/docs/**.md`.
+
+---
+
+## Project: lecionario-reformado
+
+This is a full-stack Bun + React SPA template. The sections below document the current codebase state.
+
+### Directory Structure
+
+```
+/
+├── .claude/CLAUDE.md           # This file
+├── src/
+│   ├── index.ts                # Bun server entry point
+│   ├── index.html              # HTML shell (imports frontend.tsx)
+│   ├── frontend.tsx            # React root (HMR-aware)
+│   ├── App.tsx                 # Main React component
+│   ├── APITester.tsx           # API testing UI component
+│   ├── index.css               # Component-level CSS
+│   ├── logo.svg                # Bun logo asset
+│   ├── react.svg               # React logo asset
+│   ├── components/ui/          # Shadcn-style UI components
+│   │   ├── button.tsx
+│   │   ├── card.tsx
+│   │   ├── input.tsx
+│   │   ├── label.tsx
+│   │   ├── select.tsx
+│   │   └── textarea.tsx
+│   └── lib/
+│       └── utils.ts            # cn() Tailwind merge utility
+├── styles/
+│   └── globals.css             # Global Tailwind + CSS custom properties
+├── build.ts                    # Production build script
+├── bunfig.toml                 # Bun config (Tailwind plugin, public env vars)
+├── components.json             # Shadcn CLI config
+├── package.json
+├── tsconfig.json
+└── bun.lock
+```
+
+### Development Workflow
+
+```sh
+bun install          # Install dependencies
+bun dev              # Start dev server with HMR (http://localhost:3000)
+bun start            # Start production server
+bun run build.ts     # Build for production (outputs to dist/)
+bun test             # Run tests
+```
+
+### Server & API Routes
+
+Defined in `src/index.ts`:
+
+| Route | Method | Description |
+|-------|--------|-------------|
+| `/` | GET | Serves `index.html` (SPA entry) |
+| `/api/hello` | GET | Returns `{ message: "Hello, world!", method: "GET" }` |
+| `/api/hello` | PUT | Returns `{ message: "Hello, world!", method: "PUT" }` |
+| `/api/hello/:name` | GET | Returns `{ message: "Hello, {name}!" }` |
+| `/*` | * | SPA fallback to `index.html` |
+
+HMR and console forwarding are enabled in development via `development: { hmr: true, console: true }`.
+
+### Environment Variables
+
+- Bun loads `.env` automatically — do not use `dotenv`.
+- Only variables prefixed with `BUN_PUBLIC_` are exposed to the frontend (configured in `bunfig.toml`).
+
+### UI Component Library
+
+Components live in `src/components/ui/` and follow the [shadcn/ui](https://ui.shadcn.com/) pattern (new-york style, neutral base color):
+
+- **Button** — variants: `default`, `destructive`, `outline`, `secondary`, `ghost`, `link`; sizes: `default`, `sm`, `lg`, `icon`
+- **Card** — sub-components: `CardHeader`, `CardTitle`, `CardDescription`, `CardContent`, `CardFooter`
+- **Input** — standard text input with validation styling
+- **Label** — accessible form label using Radix UI
+- **Select** — dropdown built on `@radix-ui/react-select`
+- **Textarea** — multi-line text input
+
+Use the `cn()` helper from `src/lib/utils.ts` to merge Tailwind classes:
+
+```ts
+import { cn } from "@/lib/utils";
+cn("base-class", conditionalClass && "extra-class")
+```
+
+The `@/*` path alias maps to `./src/*` (configured in `tsconfig.json`).
+
+### Styling Conventions
+
+- **Tailwind CSS v4** via `bun-plugin-tailwind`
+- Global theme in `styles/globals.css` using CSS custom properties with `oklch` color space
+- Dark mode supported via `.dark` class selector
+- Respects `prefers-reduced-motion` media query for animations
+- Component variants managed with `class-variance-authority` (CVA)
+- Class merging with `tailwind-merge` + `clsx` (via `cn()`)
+
+### TypeScript Configuration
+
+- `strict: true`
+- `moduleResolution: "bundler"` (Bun-native resolution)
+- `target: "ESNext"`
+- SVG imports typed via `bun-env.d.ts`
+- Path alias `@/*` → `./src/*`
+
+### React Conventions
+
+- Functional components only
+- HMR-aware root in `frontend.tsx` using `import.meta.hot`
+- `React.StrictMode` wraps the app in development
+- Icons via `lucide-react`
+
+### Adding New API Routes
+
+Add routes directly to the `routes` object in `src/index.ts`:
+
+```ts
+"/api/resource/:id": {
+  GET: (req) => new Response(JSON.stringify({ id: req.params.id })),
+  POST: async (req) => {
+    const body = await req.json();
+    return new Response(JSON.stringify(body), { status: 201 });
+  },
+},
+```
+
+### Adding New UI Components
+
+Follow the existing shadcn pattern:
+1. Create `src/components/ui/<component>.tsx`
+2. Use Radix UI primitives where available
+3. Apply variants with CVA
+4. Use `data-slot` attributes for composable styling hooks
+5. Export the component and any sub-components
