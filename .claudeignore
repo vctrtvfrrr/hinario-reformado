@@ -1,0 +1,14 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# Runtime databases
+*.db
+
+# Logs
+*.log
+logs/
+
+# Environment & secrets
+.env*
+!.env.example

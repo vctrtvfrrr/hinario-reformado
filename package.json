@@ -1,0 +1,14 @@
+{
+  "name": "hinario-reformado",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "dependencies": {
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^6"
+  }
+}
