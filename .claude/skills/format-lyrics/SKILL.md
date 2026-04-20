@@ -54,22 +54,12 @@ Rewrite the content applying **all three rules simultaneously**. Do not change t
 
 - Each strophe becomes a single paragraph with **no internal line breaks**. Verse lines are joined with a single space.
 - Number strophes sequentially: `1.`, `2.`, `3.`, … prefixing the paragraph.
-- Separate strophes with exactly one blank line.
+- Separate strophes with only one line break.
 - If a section is clearly a chorus/refrain (repeated block, originally in bold `**…**` or italic `_…_`), wrap it in `**bold**` instead of numbering it. It still becomes a single paragraph.
 - Remove any existing numbering or slash separators before applying new numbering.
 
-## Step 3 — Show the result and confirm
-
-Display the formatted content to the user and ask:
-
-> "Ficou assim — quer que eu salve?"
-
-If the user says yes (or equivalent), proceed to Step 4.
-If the user requests adjustments, apply them and ask again.
-
 ---
 
-## Step 4 — Write the file
+## Step 3 — Show the result and save
 
-Write the formatted content back to `data/music/<argument>.md` (overwrite).
-Confirm: "Salvo em `data/music/<argument>.md`."
+Display the formatted content to the user and write the formatted content back to `data/music/<argument>.md` (overwrite).
