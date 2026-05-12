@@ -1,0 +1,11 @@
+.git
+.gitea
+.nuxt
+.output
+.data
+node_modules
+*.log
+.env
+.env.local
+.DS_Store
+README.md
