@@ -1,10 +1,9 @@
 FROM oven/bun:1 AS build
-RUN apt-get update && apt-get install -y --no-install-recommends \
-      python3 make g++ \
-    && rm -rf /var/lib/apt/lists/*
 WORKDIR /app
 COPY package.json bun.lockb ./
-RUN bun install --frozen-lockfile
+# --ignore-scripts skips better-sqlite3 node-gyp build; Bun ships its own SQLite
+# compatible with better-sqlite3 at runtime
+RUN bun install --frozen-lockfile --ignore-scripts
 COPY . .
 ENV NODE_ENV=production
 RUN bun run build
