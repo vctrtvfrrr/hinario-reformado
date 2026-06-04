@@ -1,0 +1,31 @@
+services:
+  hinarioreformado:
+    image: registry.codelab.tec.br/codelab/hinarioreformado:latest
+    container_name: hinarioreformado
+    restart: unless-stopped
+    pull_policy: always
+    env_file:
+      - .env
+    volumes:
+      - /opt/data/hinarioreformado:/data
+    networks:
+      - traefik-public
+    mem_limit: 512m
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik-public"
+      - "traefik.http.routers.hinarioreformado.rule=Host(`hinarioreformado.com.br`) || Host(`www.hinarioreformado.com.br`)"
+      - "traefik.http.routers.hinarioreformado.entrypoints=websecure"
+      - "traefik.http.routers.hinarioreformado.tls=true"
+      - "traefik.http.routers.hinarioreformado.tls.certresolver=cloudflare"
+      - "traefik.http.routers.hinarioreformado.tls.domains[0].main=hinarioreformado.com.br"
+      - "traefik.http.routers.hinarioreformado.tls.domains[0].sans=*.hinarioreformado.com.br"
+      - "traefik.http.routers.hinarioreformado.middlewares=hinarioreformado-www-redirect@docker,security-headers@file"
+      - "traefik.http.services.hinarioreformado.loadbalancer.server.port=3000"
+      - "traefik.http.middlewares.hinarioreformado-www-redirect.redirectregex.regex=^https?://www\\.hinarioreformado\\.com\\.br/(.*)"
+      - "traefik.http.middlewares.hinarioreformado-www-redirect.redirectregex.replacement=https://hinarioreformado.com.br/$${1}"
+      - "traefik.http.middlewares.hinarioreformado-www-redirect.redirectregex.permanent=true"
+
+networks:
+  traefik-public:
+    external: true
